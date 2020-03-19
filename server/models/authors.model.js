@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const AuthorSchema = new mongoose.Schema(
   {
-    name: { type: String }
+    name: {
+      type: String,
+      minlength: 3,
+      required: [true, "Please enter a valid name."]
+    }
   },
   { timestamps: true }
 );
