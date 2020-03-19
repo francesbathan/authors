@@ -28,10 +28,12 @@ module.exports.findAuthor = (req, res) => {
 };
 
 module.exports.updateAuthor = (req, res) => {
-  Author.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Author.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
     .then(updatedAuthor => res.json(updatedAuthor))
     .catch(err => res.status(400).json(err));
-  console.log("here is the req.body", req.body);
 };
 
 module.exports.deleteAuthor = (req, res) => {
