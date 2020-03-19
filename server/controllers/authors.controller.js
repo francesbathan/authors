@@ -12,7 +12,7 @@ module.exports.createAuthor = (req, res) => {
     name
   })
     .then(author => res.json(author))
-    .catch(err => res.json(err));
+    .catch(err => res.status(400).json(err));
 };
 
 module.exports.allAuthors = (_, res) => {
@@ -24,5 +24,17 @@ module.exports.allAuthors = (_, res) => {
 module.exports.findAuthor = (req, res) => {
   Author.findById({ _id: req.params.id })
     .then(author => res.json(author))
+    .catch(err => res.json(err));
+};
+
+module.exports.updateAuthor = (req, res) => {
+  Author.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    .then(updatedAuthor => res.json(updatedAuthor))
+    .catch(err => res.status(400).json(err));
+};
+
+module.exports.deleteAuthor = (req, res) => {
+  Author.findOneAndDelete({ _id: req.params.id })
+    .then(deleteConfirm => res.json(deleteConfirm))
     .catch(err => res.json(err));
 };
